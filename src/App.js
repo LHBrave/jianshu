@@ -2,7 +2,7 @@ import React from 'react';
 import HeaderComponent from './common/header';
 import { GlobalInfontStyle } from './statics/iconfont/iconfont';
 import store from './store';
-import { BrowserRouter ,Route} from 'react-router-dom';
+import { BrowserRouter , Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Home from './pages/home';
 import Detail from './pages/detail';

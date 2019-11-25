@@ -1,4 +1,5 @@
 import React ,{ Component } from 'react';
+import { connect } from 'react-redux';
 import {
     RecommendWritterWrapper,
     RecommendWritterList,
@@ -6,6 +7,7 @@ import {
 
 class Writer  extends Component{
     render(){
+        const { recommendWritter } = this.props;
         return(
             <RecommendWritterWrapper>
                 <div className='recTitle'>
@@ -15,23 +17,35 @@ class Writer  extends Component{
                         换一批
                     </a>
                 </div>
-                <RecommendWritterList>
-                    <a className='avatar'>
-                        <img className='avatar-image' src="http://upload.jianshu.io/users/upload_avatars/3343569/6940ee65-036f-4b7a-9935-5915d9b67d14.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"/>
-                    </a>
-                    <a className='follow'>
-                        关注
-                    </a>
-                    <a className='name'>
-                        吴晓步
-                    </a>
-                    <p className='write-desc'>
-                        写了707.4k字 24.4k喜欢
-                    </p>
-                </RecommendWritterList>
+                {
+                    recommendWritter.map((item)=>{
+                        return (
+                            <RecommendWritterList>
+                                <a className='avatar'>
+                                    <img className='avatar-image' src={item.get('imageUrl')}/>
+                                </a>
+                                <a className='follow'>
+                                    关注
+                                </a>
+                                <a className='name'>
+                                    {item.get('name')}
+                                </a>
+                                <p className='write-desc'>
+                                    写了{item.get('articleLetterNum')}字 {item.get('like')}k喜欢
+                                </p>
+                            </RecommendWritterList>
+                        )
+                    })
+                }
             </RecommendWritterWrapper>
         )
     }
 }
 
-export default Writer;
+const mapStateToProps = (state)=>{
+    return {
+        recommendWritter: state.getIn(['home','recommendWritter'])
+    }
+};
+
+export default connect(mapStateToProps,null)(Writer);
